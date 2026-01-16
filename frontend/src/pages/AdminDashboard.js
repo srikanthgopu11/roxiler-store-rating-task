@@ -7,20 +7,20 @@ export default function AdminDashboard() {
     const [newStore, setNewStore] = useState({ name: '', email: '', address: '', owner_id: '' });
 
     useEffect(() => {
+        const loadData = () => {
+            API.get('/admin/dashboard').then(res => setStats(res.data));
+            API.get('/admin/users').then(res => setUsers(res.data));
+        };
         loadData();
     }, []);
-
-    const loadData = () => {
-        API.get('/admin/dashboard').then(res => setStats(res.data));
-        API.get('/admin/users').then(res => setUsers(res.data));
-    };
 
     const addStore = async (e) => {
         e.preventDefault();
         try {
             await API.post('/admin/stores', newStore);
             alert("Store Added!");
-            loadData();
+            API.get('/admin/dashboard').then(res => setStats(res.data));
+            API.get('/admin/users').then(res => setUsers(res.data));
         } catch (err) { alert("Error adding store"); }
     };
 

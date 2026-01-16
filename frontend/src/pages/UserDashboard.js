@@ -7,17 +7,16 @@ export default function UserDashboard() {
     const [sort, setSort] = useState("name");
 
     useEffect(() => {
+        const fetchStores = () => {
+            API.get(`/user/stores?search=${search}&sort=${sort}`).then(res => setStores(res.data));
+        };
         fetchStores();
     }, [search, sort]);
-
-    const fetchStores = () => {
-        API.get(`/user/stores?search=${search}&sort=${sort}`).then(res => setStores(res.data));
-    };
 
     const rate = (id, val) => {
         API.post('/user/ratings', { store_id: id, rating: val }).then(() => {
             alert("Rating Submitted!");
-            fetchStores();
+            API.get(`/user/stores?search=${search}&sort=${sort}`).then(res => setStores(res.data));
         });
     };
 
