@@ -1,0 +1,18 @@
+# Dependency folders
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Environment files
+.env
+backend/.env
+
+# Build files
+frontend/build/
+
+# Database
+backend/database.sqlite-journal
+
+# Operating system files
+.DS_Store
+Thumbs.db
